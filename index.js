@@ -134,4 +134,133 @@ var TinderAutoLike = (function () {
     }
 })();
 
-TinderAutoLike.start()
+//TinderAutoLike.start()
+
+
+
+var BadooAutoLike = (function () {
+    /**
+     * Time between two consecutive clicks.
+     * Don't set intervals smaller than 500 miliseconds, Tinder will block your requests.
+     */
+    var intervalBetweenClicks = 4 * 1000; // 4 second
+
+    /**
+     * The game pad is the place where the main Tinder buttons are.
+     */
+    var gamePad;
+
+    /**
+     * The beloved like button.
+     */
+    var likeButton;
+
+    /**
+     * The superlike button.
+     * We are not using it here, be feel free to modify the code and use it.
+     */
+    var superLikeButton;
+
+    /**
+     * The "no uglies for me today" button.
+     * We are not using it here, be feel free to modify the code and use it.
+     */
+    var passButton;
+
+    /**
+     * The set interval id, needs to be saved in case you wanna stop.
+     */
+    var setIntervalId;
+
+    /**
+     * A flag that tells if the process is running or not.
+     */
+    var doesItStarted = false;
+
+    /**
+     * Gets all the interesting buttons and stuff.
+     * 
+     * If you pay close attention you will notice that the buttons are got in 'best guess' manner, iee, we hope
+     * that the button at index 1 is the pass button, index 2 is the super like button and index 3 the like button,
+     * that means, if Tinder decides to changes its game pad disposition we'll need to adapt.
+     */
+    function beforeStart () {
+        gamePad = document.getElementsByClassName('profile-action');
+        passButton = document.getElementsByClassName('button Lts($ls-s) Z(0) CenterAlign Mx(a) Cur(p) Tt(u) Bdrs(50%) P(0) Fw($semibold) focus-button-style Bxsh($bxsh-btn) Expand Trstf(e) Trsdu($normal) Wc($transform) Pe(a) Scale(1.1):h Scale(.9):a Bgi($g-ds-background-nope):a')
+        superLikeButton = document.getElementsByClassName('button Lts($ls-s) Z(0) CenterAlign Mx(a) Cur(p) Tt(u) Bdrs(50%) P(0) Fw($semibold) focus-button-style Expand Bgi($g-ds-background-super-like):a')
+        likeButton = document.getElementsByClassName('button Lts($ls-s) Z(0) CenterAlign Mx(a) Cur(p) Tt(u) Bdrs(50%) P(0) Fw($semibold) focus-button-style Bxsh($bxsh-btn) Expand Trstf(e) Trsdu($normal) Wc($transform) Pe(a) Scale(1.1):h Scale(.9):a Bgi($g-ds-background-like):a')
+
+        let likeButton = document.querySelector('[data-origin="pipeline"]')
+        console.log(likeButton)
+        likeButton.click()
+    }
+
+    /**
+     * It does what is says it does.
+     * If the process is running it restarts the process so the changes takes effect.
+     */
+    function setIntervalBetweenClicks (newInterval) {
+        intervalBetweenClicks = newInterval;
+
+        if (doesItStarted) {
+            stop();
+            start();
+        }
+    }
+
+    /**
+     * It does what is says it does.
+     */
+    function setStartedFlat (value) {
+        doesItStarted = value;
+    }
+
+    /**
+     * Starts the process.
+     */
+    function start () {
+        beforeStart();
+
+        if (!doesItStarted) {
+            setStartedFlat(true);
+
+            setIntervalId = setInterval(function () {
+                likeButton[0].click();
+            }, intervalBetweenClicks);
+        }
+    }
+
+    /**
+     * Stops the process.
+     */
+    function stop () {
+        if (doesItStarted) {
+            setStartedFlat(false);
+
+            clearInterval(setIntervalId);
+        }
+    }
+
+    /**
+     * Prints how to do the basic use of the script.
+     */
+    function usage () {
+        console.log('Badoo Auto Like usage instructions:');
+        console.log('To start just run: BadooAutoLike.start();');
+        console.log('Yeah, that simple, it\'s gonna start the liking process until you run out of likes to give.');
+    }
+
+    usage();
+
+    /**
+     * TinderAutoLike interface.
+     */
+    return {
+        setIntervalBetweenClicks: setIntervalBetweenClicks,
+        start: start,
+        stop: stop,
+        usage: usage
+    }
+})();
+
+BadooAutoLike.start()
