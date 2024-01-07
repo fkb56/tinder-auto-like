@@ -17,7 +17,7 @@ var TinderAutoLike = (function () {
      * Time between two consecutive clicks.
      * Don't set intervals smaller than 500 miliseconds, Tinder will block your requests.
      */
-    var intervalBetweenClicks = 1 * 1000; // 1 second
+    var intervalBetweenClicks = 4 * 1000; // 4 second
 
     /**
      * The game pad is the place where the main Tinder buttons are.
@@ -59,10 +59,11 @@ var TinderAutoLike = (function () {
      * that means, if Tinder decides to changes its game pad disposition we'll need to adapt.
      */
     function beforeStart () {
-        gamePad = document.getElementsByClassName('recsGamepad')[0];
-        passButton = gamePad.getElementsByTagName('button')[1]
-        superLikeButton = gamePad.getElementsByTagName('button')[2]
-        likeButton = gamePad.getElementsByTagName('button')[3]
+        gamePad = document.getElementsByClassName('Pos(a) B(0) Iso(i) W(100%) Start(0) End(0)');
+        passButton = document.getElementsByClassName('button Lts($ls-s) Z(0) CenterAlign Mx(a) Cur(p) Tt(u) Bdrs(50%) P(0) Fw($semibold) focus-button-style Bxsh($bxsh-btn) Expand Trstf(e) Trsdu($normal) Wc($transform) Pe(a) Scale(1.1):h Scale(.9):a Bgi($g-ds-background-nope):a')
+        superLikeButton = document.getElementsByClassName('button Lts($ls-s) Z(0) CenterAlign Mx(a) Cur(p) Tt(u) Bdrs(50%) P(0) Fw($semibold) focus-button-style Expand Bgi($g-ds-background-super-like):a')
+        likeButton = document.getElementsByClassName('button Lts($ls-s) Z(0) CenterAlign Mx(a) Cur(p) Tt(u) Bdrs(50%) P(0) Fw($semibold) focus-button-style Bxsh($bxsh-btn) Expand Trstf(e) Trsdu($normal) Wc($transform) Pe(a) Scale(1.1):h Scale(.9):a Bgi($g-ds-background-like):a')
+
     }
 
     /**
@@ -95,7 +96,7 @@ var TinderAutoLike = (function () {
             setStartedFlat(true);
 
             setIntervalId = setInterval(function () {
-                likeButton.click();
+                likeButton[0].click();
             }, intervalBetweenClicks);
         }
     }
@@ -132,3 +133,5 @@ var TinderAutoLike = (function () {
         usage: usage
     }
 })();
+
+TinderAutoLike.start()
